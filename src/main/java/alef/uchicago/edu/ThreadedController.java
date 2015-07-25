@@ -3,7 +3,7 @@ package alef.uchicago.edu;
 /**
  * Sample Skeleton for 'threaded.fxml' Controller Class
  */
-
+import java.nio.file.Files;
 import com.sun.deploy.net.HttpDownload;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +22,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -102,10 +104,28 @@ public class ThreadedController implements Initializable{
     private Button btnSelect; // Value injected by FXMLLoader
 
     private String strDirSave;
+   // private File researchDirectory;
+    private int mostRelevantFile;
 
 
     @FXML
     private void btnSelect_go(ActionEvent event) {
+
+//        researchDirectory = new File("C:/path/selectedDir/" + txtSearch.getCharacters());
+//        if (!researchDirectory.exists()){
+//            System.out.println("making your new directory! " + txtSearch.getCharacters());
+//            boolean made = false;
+//            try{
+//                researchDirectory.mkdir();
+//                made = true;
+//            }
+//            catch (SecurityException se){
+//                se.printStackTrace();
+//                System.out.println("didnt make for some reason");
+//            }
+//            if(made){
+//                System.out.println("Created!");
+//            }
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
 
@@ -114,18 +134,21 @@ public class ThreadedController implements Initializable{
         //Show open file dialog
         File file = directoryChooser.showDialog(null);
 
+
         if (file != null) {
 
             btnSelect.setText(file.getPath());
             strDirSave = file.getAbsolutePath();
 
         }
-
     }
+
+
     @FXML
     void btnGoAction(ActionEvent event) {
 
         lblResult.setText("Result");
+
     }
 
 
@@ -136,6 +159,13 @@ public class ThreadedController implements Initializable{
         System.exit(0);
 
     }
+
+    //making file titles meet project specs
+    private String countingRelevantFiles(){
+        mostRelevantFile++;
+        return String.format("%04d", mostRelevantFile);
+    }
+
 
     public class GetReviewsTask extends Task<ObservableList<String>> {
 
@@ -209,12 +239,14 @@ public class ThreadedController implements Initializable{
         btnGo.setOnAction(new EventHandler<ActionEvent>() {
             //@Override
             public void handle(ActionEvent event) {
-                if (strDirSave == null) {
-                    System.err.println("You need to set an output dir!");
-                    return;
-                }
+
 
                 final Task<ObservableList<String>> getReviewsTask = new GetReviewsTask();
+
+                if (strDirSave == null) {
+                    System.err.println("You dont have an output dir!");
+                    return;
+                }
 
                 table.getItems().clear();
                 btnGo.disableProperty().bind(getReviewsTask.runningProperty());
@@ -278,8 +310,11 @@ public class ThreadedController implements Initializable{
 
                 //using streams here java8??
                 InputStream inputStream = util.getInputStream();
-                FileOutputStream outputStream = new FileOutputStream(fileTo + "/" + util.getFileName());
+
+                FileOutputStream outputStream = new FileOutputStream(fileTo + "/" + countingRelevantFiles() +"_" + "ggl" + "_" + util.getFileName());
+
                 this.updateTitle(fileTo + "/" + util.getFileName());
+
 
                 byte[] buffer = new byte[4096];
                 int bytesRead = -1;
