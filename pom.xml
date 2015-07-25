@@ -9,14 +9,14 @@
 
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    
+
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>uchicago</name>
     </organization>
 
     <properties>
-        <slf4j.version>1.6.1</slf4j.version>
+        <slf4j.version>1.7.12</slf4j.version>
     </properties>
 
     <build>
@@ -46,7 +46,7 @@
 
 
     <dependencies>
-    
+
         <!-- MigLayout -->
 
         <dependency>
@@ -84,6 +84,11 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.3</version>
         </dependency>
 
     </dependencies>
