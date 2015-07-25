@@ -64,7 +64,15 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btnSelect" layoutX="222.0" layoutY="602.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="163.0"  onAction="#btnSelect_go" text="Select Dir" />
+            <Button fx:id="btnSelect" layoutX="222.0" layoutY="602.0" mnemonicParsing="false" onAction="#btnSelect_go" prefHeight="31.0" prefWidth="163.0" text="Select Dir" />
+            <RadioButton fx:id="pptBtn" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="ppt">
+               <toggleGroup>
+                  <ToggleGroup fx:id="fileType" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="docxBtn" layoutX="82.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" toggleGroup="$fileType"  />
+            <RadioButton fx:id="pdfBtn" layoutX="174.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" toggleGroup="$fileType" />
+            <RadioButton fx:id="docBtn" layoutX="249.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="doc" toggleGroup="$fileType" />
          </children>
     </AnchorPane>
   </children>

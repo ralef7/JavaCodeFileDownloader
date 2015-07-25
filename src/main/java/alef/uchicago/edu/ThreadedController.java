@@ -79,6 +79,19 @@ import org.jsoup.select.Elements;
 
 public class ThreadedController implements Initializable{
 
+    @FXML // fx:id="pdfBtn"
+    private RadioButton pdfBtn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="docBtn"
+    private RadioButton docBtn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="pptBtn"
+    private RadioButton pptBtn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="docxBtn"
+    private RadioButton docxBtn; // Value injected by FXMLLoader
+
+
     @FXML // fx:id="mnuQuit"
     private MenuItem mnuQuit; // Value injected by FXMLLoader
 
@@ -106,6 +119,7 @@ public class ThreadedController implements Initializable{
     private String strDirSave;
    // private File researchDirectory;
     private int mostRelevantFile;
+    private String docTypeForDownload;
 
 
     @FXML
@@ -176,12 +190,25 @@ public class ThreadedController implements Initializable{
     //    @Override
         protected ObservableList<String> call() throws Exception{
 
+            if (pptBtn.isSelected()){
+                docTypeForDownload = "ppt";
+            }
+            else if (docBtn.isSelected()){
+                docTypeForDownload = "doc";
+            }
+            else if (docxBtn.isSelected()){
+                docTypeForDownload = "docx";
+            }
+            else{
+                docTypeForDownload = "pdf";
+            }
+
             ObservableList<String> sales = FXCollections.observableArrayList();
             updateMessage("Finding files...");
 
             String strUrl = "https://www.google.com/search?q=";
             strUrl += convertSpacesToPluses(txtSearch.getText());
-            strUrl += "+filetype:pdf"; //make this dynamic
+            strUrl += "+filetype:"+docTypeForDownload; //make this dynamic
 
             Document doc;
             ArrayList<String> strResults = new ArrayList<String>();
@@ -190,11 +217,11 @@ public class ThreadedController implements Initializable{
                 doc = Jsoup.connect(strUrl).userAgent("Mozilla").ignoreHttpErrors(true).timeout(0).get();
                 Elements hrefs = doc.select("a[href]");
                 for (Element href : hrefs){
-
                     String strRef = href.attr("abs:href");
-                    if (strRef.contains(".pdf") && strRef.contains("https://www.google.com/url?q=")){
 
-                        String strFileToDownload = strRef.substring(strRef.indexOf("https://www.google.com/url?q=") + 29, strRef.indexOf(".pdf") + 4);
+                    if (strRef.contains("."+docTypeForDownload) && strRef.contains("https://www.google.com/url?q=")){
+
+                        String strFileToDownload = strRef.substring(strRef.indexOf("https://www.google.com/url?q=") + 29, strRef.indexOf("."+docTypeForDownload) + 4);
                         strResults.add(strFileToDownload);
                     }
                 }
