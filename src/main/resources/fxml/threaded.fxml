@@ -70,7 +70,7 @@
                   <ToggleGroup fx:id="fileType" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="docxBtn" layoutX="82.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" toggleGroup="$fileType"  />
+            <RadioButton fx:id="docxBtn" layoutX="82.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" toggleGroup="$fileType" />
             <RadioButton fx:id="pdfBtn" layoutX="174.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" toggleGroup="$fileType" />
             <RadioButton fx:id="docBtn" layoutX="249.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="doc" toggleGroup="$fileType" />
          </children>

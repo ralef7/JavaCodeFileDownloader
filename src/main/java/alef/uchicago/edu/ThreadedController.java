@@ -117,7 +117,7 @@ public class ThreadedController implements Initializable{
     private Button btnSelect; // Value injected by FXMLLoader
 
     private String strDirSave;
-   // private File researchDirectory;
+    private File researchDirectory;
     private int mostRelevantFile;
     private String docTypeForDownload;
 
@@ -125,41 +125,20 @@ public class ThreadedController implements Initializable{
     @FXML
     private void btnSelect_go(ActionEvent event) {
 
-//        researchDirectory = new File("C:/path/selectedDir/" + txtSearch.getCharacters());
-//        if (!researchDirectory.exists()){
-//            System.out.println("making your new directory! " + txtSearch.getCharacters());
-//            boolean made = false;
-//            try{
-//                researchDirectory.mkdir();
-//                made = true;
-//            }
-//            catch (SecurityException se){
-//                se.printStackTrace();
-//                System.out.println("didnt make for some reason");
-//            }
-//            if(made){
-//                System.out.println("Created!");
-//            }
-
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-
-        directoryChooser.setTitle("This is my file ch");
-
-        //Show open file dialog
-        File file = directoryChooser.showDialog(null);
 
 
-        if (file != null) {
 
-            btnSelect.setText(file.getPath());
-            strDirSave = file.getAbsolutePath();
 
-        }
+
     }
 
 
     @FXML
     void btnGoAction(ActionEvent event) {
+
+
+
+
 
         lblResult.setText("Result");
 
@@ -266,6 +245,24 @@ public class ThreadedController implements Initializable{
         btnGo.setOnAction(new EventHandler<ActionEvent>() {
             //@Override
             public void handle(ActionEvent event) {
+                researchDirectory = new File("c:/path/selectedDir/" + txtSearch.getCharacters());
+
+                if (!researchDirectory.exists()) {
+                    System.out.println("making your new directory! " + txtSearch.getCharacters());
+                    boolean made = false;
+                    try {
+                        researchDirectory.mkdirs();
+                        made = true;
+                    } catch (SecurityException se) {
+                        se.printStackTrace();
+                        System.out.println("didnt make for some reason");
+                    }
+                    if (made) {
+                        System.out.println("Created!");
+                    }
+                }
+                //   btnSelect.setText(researchDirectory.getPath());
+                strDirSave = researchDirectory.getAbsolutePath();
 
 
                 final Task<ObservableList<String>> getReviewsTask = new GetReviewsTask();
