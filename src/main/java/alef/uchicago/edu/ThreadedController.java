@@ -91,6 +91,14 @@ public class ThreadedController implements Initializable{
     @FXML // fx:id="docxBtn"
     private RadioButton docxBtn; // Value injected by FXMLLoader
 
+    @FXML
+    private RadioButton xlsxBtn;
+
+    @FXML
+    private RadioButton csvBtn;
+
+    @FXML
+    private RadioButton txtBtn;
 
     @FXML // fx:id="mnuQuit"
     private MenuItem mnuQuit; // Value injected by FXMLLoader
@@ -113,6 +121,12 @@ public class ThreadedController implements Initializable{
     @FXML // fx:id="txtSearch"
     private TextField txtSearch; // Value injected by FXMLLoader
 
+    @FXML
+    private TextField exactPhrase;
+
+    @FXML
+    private TextField notTheseWords;
+
     @FXML // fx:id="btnSelect"
     private Button btnSelect; // Value injected by FXMLLoader
 
@@ -120,6 +134,7 @@ public class ThreadedController implements Initializable{
     private File researchDirectory;
     private int mostRelevantFile;
     private String docTypeForDownload;
+    private String fullSearch;
 
 
 
@@ -148,6 +163,7 @@ public class ThreadedController implements Initializable{
         private String convertSpacesToPluses(String strOrig) {
             return strOrig.trim().replace(" ", "+");
         }
+        private String convertSpacesToPlusAndMinus(String strOrig) {return strOrig.trim().replace(" ", "+-");}
 
         @Override
         protected ObservableList<String> call() throws Exception{
@@ -161,15 +177,27 @@ public class ThreadedController implements Initializable{
             else if (docxBtn.isSelected()){
                 docTypeForDownload = "docx";
             }
-            else{
+            else if (pdfBtn.isSelected()){
                 docTypeForDownload = "pdf";
+            }
+            else if (xlsxBtn.isSelected()){
+                docTypeForDownload = "xlsx";
+            }
+            else if (txtBtn.isSelected()){
+                docTypeForDownload = "txt";
+            }
+            else if (csvBtn.isSelected()){
+                docTypeForDownload = "csv";
             }
 
             ObservableList<String> sales = FXCollections.observableArrayList();
             updateMessage("Finding files...");
-
+//            String exactString = exactPhrase.getText();
+//            exactString = "\""+exactPhrase.getText()+"\"";
+            fullSearch = txtSearch.getText();
             String strUrl = "https://www.google.com/search?q=";
             strUrl += convertSpacesToPluses(txtSearch.getText());
+            strUrl += convertSpacesToPlusAndMinus(notTheseWords.getText());
             strUrl += "+filetype:"+docTypeForDownload; //make this dynamic
 
             Document doc;
@@ -228,11 +256,17 @@ public class ThreadedController implements Initializable{
         btnGo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                String filePath = txtSearch.getText();
 
-                    researchDirectory = new File("c:/path/selectedDir/" + txtSearch.getCharacters());
+                if (!notTheseWords.getText().isEmpty()){
+                    filePath += '-';
+                    filePath += notTheseWords.getCharacters();
+                }
+
+                    researchDirectory = new File("c:/path/selectedDir/" + filePath);
 
                     if (!researchDirectory.exists()) {
-                        System.out.println("making your new directory! " + txtSearch.getCharacters());
+                        System.out.println("making your new directory! " + filePath);
                         boolean made = false;
                         try {
                             researchDirectory.mkdirs();
