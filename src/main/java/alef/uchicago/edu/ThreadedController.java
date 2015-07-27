@@ -122,29 +122,12 @@ public class ThreadedController implements Initializable{
     private String docTypeForDownload;
 
 
-    @FXML
-    private void btnSelect_go(ActionEvent event) {
-
-
-
-
-
-
-    }
-
 
     @FXML
     void btnGoAction(ActionEvent event) {
 
-
-
-
-
         lblResult.setText("Result");
-
     }
-
-
 
     @FXML
     void mnuQuitAction(ActionEvent event) {
@@ -166,7 +149,7 @@ public class ThreadedController implements Initializable{
             return strOrig.trim().replace(" ", "+");
         }
 
-    //    @Override
+        @Override
         protected ObservableList<String> call() throws Exception{
 
             if (pptBtn.isSelected()){
@@ -220,7 +203,7 @@ public class ThreadedController implements Initializable{
         }
     }
 
-  //  @Override
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         strDirSave = null;
@@ -243,26 +226,28 @@ public class ThreadedController implements Initializable{
 
         //java 8 to more concisely deal with anonymous class?
         btnGo.setOnAction(new EventHandler<ActionEvent>() {
-            //@Override
+            @Override
             public void handle(ActionEvent event) {
-                researchDirectory = new File("c:/path/selectedDir/" + txtSearch.getCharacters());
 
-                if (!researchDirectory.exists()) {
-                    System.out.println("making your new directory! " + txtSearch.getCharacters());
-                    boolean made = false;
-                    try {
-                        researchDirectory.mkdirs();
-                        made = true;
-                    } catch (SecurityException se) {
-                        se.printStackTrace();
-                        System.out.println("didnt make for some reason");
+                    researchDirectory = new File("c:/path/selectedDir/" + txtSearch.getCharacters());
+
+                    if (!researchDirectory.exists()) {
+                        System.out.println("making your new directory! " + txtSearch.getCharacters());
+                        boolean made = false;
+                        try {
+                            researchDirectory.mkdirs();
+                            made = true;
+                        } catch (SecurityException se) {
+                            se.printStackTrace();
+                            System.out.println("didnt make for some reason");
+                        }
+                        if (made) {
+                            System.out.println("Created!");
+                        }
                     }
-                    if (made) {
-                        System.out.println("Created!");
-                    }
-                }
-                //   btnSelect.setText(researchDirectory.getPath());
-                strDirSave = researchDirectory.getAbsolutePath();
+                    //   btnSelect.setText(researchDirectory.getPath());
+                    strDirSave = researchDirectory.getAbsolutePath();
+
 
 
                 final Task<ObservableList<String>> getReviewsTask = new GetReviewsTask();
@@ -277,7 +262,7 @@ public class ThreadedController implements Initializable{
                 lstView.itemsProperty().bind(getReviewsTask.valueProperty());
 
                 getReviewsTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                 //   @Override
+                    @Override
                     public void handle(WorkerStateEvent event) {
 
                         ObservableList<String> observableList = getReviewsTask.getValue();

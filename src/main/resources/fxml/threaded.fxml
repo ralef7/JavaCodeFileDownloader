@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox id="rootPane" prefHeight="683.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alef.uchicago.edu.ThreadedController">
+<VBox id="rootPane" prefHeight="878.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alef.uchicago.edu.ThreadedController">
   <children>
-    <MenuBar prefHeight="32.0" prefWidth="643.0">
+    <MenuBar prefHeight="18.0" prefWidth="641.0">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -48,31 +49,63 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="493.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="774.0" prefWidth="749.0" style="-fx-background-image: url(&quot;http://trbd.org/rcny/wp-content/uploads/2014/05/cifry-voronka-abstrakciya-36184da.jpg&quot;);" VBox.vgrow="ALWAYS">
          <children>
-            <HBox prefHeight="0.0" prefWidth="643.0">
+            <HBox layoutX="4.0" layoutY="-2.0" prefHeight="63.0" prefWidth="749.0">
                <children>
-                  <TextField fx:id="txtSearch" prefHeight="43.0" prefWidth="348.0" promptText="Please Enter Search" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <Button fx:id="btnGo" blendMode="EXCLUSION" mnemonicParsing="false" onAction="#btnGoAction" prefHeight="60.0" prefWidth="1097.0" style="-fx-background-color: Black;" text="Click Here To Begin Download" textAlignment="CENTER" underline="true">
+                     <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop color="BLACK" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
                   <Label fx:id="lblResult" prefHeight="135.0" prefWidth="291.0" />
                </children>
             </HBox>
-            <Button fx:id="btnGo" blendMode="DARKEN" layoutX="345.0" mnemonicParsing="false" onAction="#btnGoAction" opacity="0.55" prefHeight="64.0" prefWidth="291.0" text="Begin Download" textAlignment="CENTER" textFill="#f21010" underline="true" />
-            <ListView fx:id="lstView" layoutX="12.0" layoutY="287.0" prefHeight="315.0" prefWidth="617.0" />
-            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="159.0" prefHeight="32.0" prefWidth="296.0" text="Find Documents" />
-            <TableView fx:id="table" layoutX="-1.0" layoutY="58.0" prefHeight="234.0" prefWidth="643.0">
+            <ListView fx:id="lstView" layoutX="5.0" layoutY="515.0" prefHeight="315.0" prefWidth="749.0" style="-fx-background-color: blue;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></ListView>
+            <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="483.0" prefHeight="32.0" prefWidth="749.0" text="Find Files" textFill="#0d0d0d" underline="true" />
+            <TableView fx:id="table" layoutX="14.0" layoutY="255.0" prefHeight="234.0" prefWidth="749.0" style="-fx-background-image: url(&quot;http://p1.pichost.me/i/58/1819901.jpg&quot;);">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </TableView>
-            <Button fx:id="btnSelect" layoutX="222.0" layoutY="602.0" mnemonicParsing="false" onAction="#btnSelect_go" prefHeight="31.0" prefWidth="163.0" text="Select Dir" />
-            <RadioButton fx:id="pptBtn" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="ppt">
-               <toggleGroup>
-                  <ToggleGroup fx:id="fileType" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="docxBtn" layoutX="82.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" toggleGroup="$fileType" />
-            <RadioButton fx:id="pdfBtn" layoutX="174.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" toggleGroup="$fileType" />
-            <RadioButton fx:id="docBtn" layoutX="249.0" layoutY="32.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="doc" toggleGroup="$fileType" />
+            <!--<Button fx:id="btnSelect" layoutX="239.0" layoutY="812.0" mnemonicParsing="false" onAction="#btnSelect_go" prefHeight="31.0" prefWidth="163.0" text="Select Dir" />-->
+            <TextField fx:id="txtSearch" layoutX="3.0" layoutY="64.0" prefHeight="32.0" prefWidth="749.0" promptText="Please Enter Search" />
+            <TextField fx:id="exactPhrase" layoutX="3.0" layoutY="103.0" prefHeight="32.0" prefWidth="749.0" promptText="Please Enter an exact phrase if you wish" />
+            <TextField fx:id="notTheseWords" layoutX="3.0" layoutY="143.0" prefHeight="32.0" prefWidth="749.0" promptText="Please words you would like excluded" />
+            <HBox layoutX="106.0" layoutY="191.0" prefHeight="32.0" prefWidth="543.0" style="-fx-background-color: brown;">
+               <children>
+                  <RadioButton fx:id="pptBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="ppt">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="fileType" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="docxBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" toggleGroup="$fileType" />
+                  <RadioButton fx:id="pdfBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" toggleGroup="$fileType" />
+                  <RadioButton fx:id="docBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="doc" toggleGroup="$fileType" />
+                  <RadioButton fx:id="txtBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="txt" toggleGroup="$fileType" />
+                  <RadioButton mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="xlsx" toggleGroup="$fileType" fx:id="xlsxBtn" />
+                  <RadioButton fx:id="csvBtn" mnemonicParsing="false" prefHeight="23.0" prefWidth="81.0" style="-fx-background-color: brown;" text="csv" toggleGroup="$fileType" />
+               </children>
+            </HBox>
+            <Label layoutX="327.0" layoutY="223.0" text="Download Files" underline="true" />
          </children>
     </AnchorPane>
   </children>
