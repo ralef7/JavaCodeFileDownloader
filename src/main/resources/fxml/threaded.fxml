@@ -54,7 +54,7 @@
             <HBox layoutX="3.0" prefHeight="63.0" prefWidth="749.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <Button fx:id="btnGo" blendMode="HARD_LIGHT" mnemonicParsing="false" onAction="#btnGoAction" prefHeight="63.0" prefWidth="749.0" style="-fx-background-color: Black;" text="Click Here To Begin Download" textAlignment="CENTER" textFill="#ffc3c3" underline="true">
+                  <Button fx:id="btnGo" blendMode="HARD_LIGHT" mnemonicParsing="false" onAction="#btnGoAction" prefHeight="63.0" prefWidth="1041.0" style="-fx-background-color: Black;" text="Click Here To Begin Download" textAlignment="CENTER" textFill="#ffc3c3" underline="true">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -62,12 +62,12 @@
                   <Label fx:id="lblResult" prefHeight="135.0" prefWidth="291.0" />
                </children>
             </HBox>
-            <ListView fx:id="lstView" layoutX="5.0" layoutY="515.0" prefHeight="315.0" prefWidth="749.0" style="-fx-background-image: url(&quot;http://hdwpics.com/images/070C9C850A87/Keyboard-hd.jpg&quot;);">
+            <ListView fx:id="lstView" layoutX="15.0" layoutY="510.0" prefHeight="320.0" prefWidth="739.0" style="-fx-background-image: url(&quot;http://hdwpics.com/images/070C9C850A87/Keyboard-hd.jpg&quot;); -fx-border-color: Red;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></ListView>
             <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="483.0" prefHeight="32.0" prefWidth="749.0" text="Files Found" textFill="WHITE" underline="true" />
-            <TableView fx:id="table" layoutX="14.0" layoutY="255.0" prefHeight="234.0" prefWidth="749.0" style="-fx-background-image: url(&quot;http://p1.pichost.me/i/58/1819901.jpg&quot;) 30 round; -fx-background-radius: 5;">
+            <TableView fx:id="table" layoutX="14.0" layoutY="255.0" prefHeight="234.0" prefWidth="739.0" style="-fx-background-image: url(&quot;http://p1.pichost.me/i/58/1819901.jpg&quot;) 30 round; -fx-border-color: Red;">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
@@ -82,7 +82,7 @@
             <TextField fx:id="txtSearch" layoutX="3.0" layoutY="64.0" prefHeight="32.0" prefWidth="749.0" promptText="Please Enter Search" />
             <TextField fx:id="exactPhrase" layoutX="3.0" layoutY="103.0" prefHeight="32.0" prefWidth="749.0" promptText="Please Enter an exact phrase if you wish" />
             <TextField fx:id="notTheseWords" layoutX="3.0" layoutY="143.0" prefHeight="32.0" prefWidth="749.0" promptText="Please words you would like excluded" />
-            <HBox layoutX="106.0" layoutY="191.0" prefHeight="32.0" prefWidth="543.0" style="-fx-background-color: black;">
+            <HBox layoutX="106.0" layoutY="191.0" prefHeight="32.0" prefWidth="543.0" style="-fx-background-color: black; -fx-border-color: cyan;">
                <children>
                   <RadioButton fx:id="pptBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="ppt" textFill="#fcfafa">
                      <toggleGroup>
@@ -90,7 +90,7 @@
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="docxBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="docx" textFill="#f8f7f7" toggleGroup="$fileType" />
-                  <RadioButton fx:id="pdfBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" textFill="#fcf9f9" toggleGroup="$fileType" />
+                  <RadioButton fx:id="pdfBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="pdf" textFill="#fcf9f9" toggleGroup="$fileType" selected="true" />
                   <RadioButton fx:id="docBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="doc" textFill="#fcfcfc" toggleGroup="$fileType" />
                   <RadioButton fx:id="txtBtn" mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="txt" textFill="#fcf9f9" toggleGroup="$fileType" />
                   <RadioButton mnemonicParsing="false" prefHeight="21.0" prefWidth="82.0" text="xlsx" textFill="#f5f2f2" toggleGroup="$fileType" fx:id="xlsxBtn" />
