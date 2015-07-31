@@ -42,7 +42,6 @@ public class HttpDownUtil {
             System.out.println("fileName = " + fileName);
 
             inputStream = httpConnection.getInputStream();
-
         }
         else {
             throw new IOException( "No files to download. Server replied: " + responseCode);
