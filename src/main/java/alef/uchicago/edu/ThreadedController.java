@@ -1,5 +1,7 @@
 package alef.uchicago.edu;
 
+//region Imports
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -13,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,7 +39,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+//endregion
+
 public class ThreadedController implements Initializable{
+
+    //region FXMLAnnotatons
 
     @FXML // fx:id="docxBox"
     private CheckBox docxBox; // Value injected by FXMLLoader
@@ -89,6 +96,8 @@ public class ThreadedController implements Initializable{
     @FXML // fx:id="btnSelect"
     private Button btnSelect; // Value injected by FXMLLoader
 
+    //endregion
+
     private String filePath;
     private String strDirSave;
     private File researchDirectory;
@@ -103,7 +112,7 @@ public class ThreadedController implements Initializable{
     @FXML
     void btnGoAction(ActionEvent event) {
 
-        lblResult.setText("Result");
+       // lblResult.setText("Result");
     }
 
     @FXML
@@ -131,11 +140,29 @@ public class ThreadedController implements Initializable{
                     .map(Map.Entry::getValue)
                     .collect(Collectors.toList());
             ArrayList<String> combinedList = new ArrayList<>();
+            ArrayList<String> processedTypeList = new ArrayList<>();
             for (String docType: docTypeForDownload)
             {
                combinedList.addAll(runSearchQuery(docType));
             }
-                return FXCollections.observableArrayList(combinedList);
+            String[] wordsExcluded = notTheseWords.getText().split(" ");
+            Boolean fileDownloadCheck  = true;
+            for (String result: combinedList){
+                fileDownloadCheck = true;
+                for (String wordRemoved : wordsExcluded){
+                    System.out.println(wordsExcluded.length);
+                    System.out.println(wordRemoved);
+                    if (!wordRemoved.isEmpty() && result.toLowerCase().indexOf(wordRemoved.toLowerCase()) > -1){
+                        fileDownloadCheck = false;
+                    }
+                }
+                if (fileDownloadCheck){
+                    processedTypeList.add(result);
+                }
+            }
+
+            System.out.println(combinedList.size());
+                return FXCollections.observableArrayList(processedTypeList);
         }
 
         public ArrayList<String> runSearchQuery(String docTypeWanted) {
@@ -143,14 +170,18 @@ public class ThreadedController implements Initializable{
             ObservableList<String> sales = FXCollections.observableArrayList();
             updateMessage("Finding files...");
             containsSomeOfTheseWordsSearch = txtSearch.getText();
-            containsNoneOfTheseWords = "-" + notTheseWords.getText();
-            containsThisExactPhrase = "%22" + exactPhrase.getText() + "%22";
+            containsNoneOfTheseWords = "+-" + notTheseWords.getText().trim();
+            containsThisExactPhrase =  "+%22" + exactPhrase.getText()+"%22";
             String strUrl = "https://www.google.com/search?q=";
 
             strUrl += convertSpacesToPluses(containsSomeOfTheseWordsSearch);
-            strUrl += convertSpacesToPlusAndMinus(containsNoneOfTheseWords);
+            if(!containsNoneOfTheseWords.equals(" -"))
+            {
+                strUrl += convertSpacesToPlusAndMinus(containsNoneOfTheseWords);
+            }
             strUrl += convertSpacesToPluses(containsThisExactPhrase);
             strUrl += "+filetype:" + docTypeWanted;
+            System.out.println(strUrl);
 
             Document doc;
             ArrayList<String> strResults = new ArrayList<>();
@@ -173,17 +204,18 @@ public class ThreadedController implements Initializable{
                 } else {
                     updateMessage("files found");
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return strResults;
+
         }
-        }
+
+
+    }
 
     //making file titles meet project specs
     private String countingRelevantFiles(){
-//        if (!docTypeForDownload.equals())
 
         mostRelevantFile++;
         return String.format("%04d", mostRelevantFile);
@@ -219,6 +251,10 @@ public class ThreadedController implements Initializable{
                    filePath += notTheseWords.getCharacters();
                }
 
+               if (!exactPhrase.getText().isEmpty()){
+                   filePath += '+';
+                   filePath += exactPhrase.getCharacters();
+               }
                    researchDirectory = new File("c:/path/selectedDir/" + filePath);
 
                    if (!researchDirectory.exists()) {
@@ -271,7 +307,7 @@ public class ThreadedController implements Initializable{
                    }
 
                    //use executor service with only a limited number of threads
-                   ExecutorService executor = Executors.newFixedThreadPool(3, r -> {
+                   ExecutorService executor = Executors.newFixedThreadPool(6, r -> {
                        Thread thread = new Thread(r);
                        thread.setDaemon(true);
                        return thread;
@@ -335,7 +371,6 @@ public class ThreadedController implements Initializable{
                 this.cancel(true);
                 table.getItems().remove(this);
             }
-
             return null;
         }
     }
