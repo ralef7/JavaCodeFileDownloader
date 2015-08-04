@@ -112,7 +112,6 @@ public class ThreadedController implements Initializable{
     @FXML
     void btnGoAction(ActionEvent event) {
 
-       // lblResult.setText("Result");
     }
 
     @FXML
@@ -344,7 +343,6 @@ public class ThreadedController implements Initializable{
                 this.updateMessage("Waiting...");
                 util.downloadFile(this.fileFrom);
 
-                //using streams here java8??
                 InputStream inputStream = util.getInputStream();
                 int searchNum = numberOfSearchesByFilePath.get(filePath);
                 FileOutputStream outputStream = new FileOutputStream(fileTo + "/" + searchNum + "_" + relevantNum +"_" + "ggl" + "_" + util.getFileName());
