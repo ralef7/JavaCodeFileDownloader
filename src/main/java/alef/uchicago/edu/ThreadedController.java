@@ -135,6 +135,7 @@ public class ThreadedController implements Initializable{
             typeOfDocument.put(pptBox, "ppt"); typeOfDocument.put(docBox, "doc"); typeOfDocument.put(docxBox, "docx"); typeOfDocument.put(pdfBox, "pdf"); typeOfDocument.put(xlsxBox, "xlsx");
             typeOfDocument.put(txtBox, "txt"); typeOfDocument.put(csvBox, "csv");
 
+            //Ensures the search query will be run on all selected document types
             docTypeForDownload = typeOfDocument.entrySet().stream()
                     .filter(e -> e.getKey().isSelected())
                     .map(Map.Entry::getValue)
@@ -145,6 +146,7 @@ public class ThreadedController implements Initializable{
             {
                combinedList.addAll(runSearchQuery(docType));
             }
+            //Ensures our titles will not include any words that we want excluded.
             String[] wordsExcluded = notTheseWords.getText().split(" ");
             Boolean fileDownloadCheck  = true;
             for (String result: combinedList){
@@ -160,8 +162,6 @@ public class ThreadedController implements Initializable{
                     processedTypeList.add(result);
                 }
             }
-
-            System.out.println(combinedList.size());
                 return FXCollections.observableArrayList(processedTypeList);
         }
 
@@ -242,6 +242,7 @@ public class ThreadedController implements Initializable{
 
         table.getColumns().addAll(statusCol, progressCol, fileCol);
 
+        //ensures filepath made correctly and search entered correctly
         btnGo.setOnAction(event -> {
                filePath = txtSearch.getText();
                mostRelevantFile = 1;
