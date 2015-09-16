@@ -1,5 +1,8 @@
 proThreaded README:
 
+This is a Maven project. The running of this application requires java 8.  Import this project into intellij or some other
+IDE to easily view the code and run the MainApp class to begin the program.
+
 A few points on this app:
 
 1.  The first number represents a counter for the number of downloads you have done for a given file type.

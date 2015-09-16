@@ -307,7 +307,7 @@ public class ThreadedController implements Initializable{
                    }
 
                    //use executor service with only a limited number of threads
-                   ExecutorService executor = Executors.newFixedThreadPool(6, r -> {
+                   ExecutorService executor = Executors.newFixedThreadPool(10, r -> {
                        Thread thread = new Thread(r);
                        thread.setDaemon(true);
                        return thread;
